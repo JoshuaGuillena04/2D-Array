@@ -1,70 +1,70 @@
 package Guillena;
-import java.util.Scanner;
+import java.util.*;
 public class Guillena {
-
+		static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
 		
-//		int [][] arr = new int[3][3];
-//		for(int x = 0;x<arr.length;x++) {
-//			for(int e = 0; e<arr[x].length;e++) {
-//				System.out.println("Enter number: ");
-//					arr[x][e] = sc.nextInt();
-//			}	
-//		}
-//		
-//	for(int x = 0; x<arr.length;x++) {
-//			for(int e = 0;e<arr[x].length;e++) {
-//				System.out.print(arr [x][e] + " ");
-//			}
-//			System.out.println(" ");
-//		}
-//	
-//	for(int x = 0; x<arr.length;x++) {
-//		for(int e = 0;e<arr[x].length;e++) {
-//			if(arr[x][e]== 7) {
-//				System.out.println("number 7 is found at" + x + "" + e);
-//			}
-//		}
-//	}
-	
-	int numbers [][] = {{120,250,789,7},{58,79,31,87},{8,1,2,3},{99,98,97,96}};
-		for(int j = 0; j<numbers.length;j++) {
-			for(int e = 0; e<numbers[j].length;e++) {
-				System.out.print(numbers[j][e] + " ");
-			}
-			System.out.println();
-		}
 		
-		for(int j = 0; j<numbers.length;j++) {
-			for(int e = 0; e<numbers[j].length;e++) {
-				if(numbers[j][e] == 1) {
-					System.out.println("number 1 is found at indices " + j + " and " + e);
-					numbers[j][e] = 50;
+		
+			int hotel [][] = new int[7][5];
+			
+			int choice = 0;
+			while(choice != 4) {
+				System.out.println("----------------------");
+				System.out.println("Hotel Reservation System"
+						+ "\n1.View all rooms"
+						+ "\n2.Check-in (reserve a room)"
+						+ "\n3.Check-out (free a room)"
+						+ "\n4.Exit program");
+				System.out.print("Enter Choice: ");
+					choice = sc.nextInt();
+				System.out.println("----------------------");
+				switch(choice) {
+					case 1:
+						for(int  i = 0; i<hotel.length;i++) {
+							System.out.print("Floor " + (i + 1) + ": ");
+							for(int x = 0; x<hotel[i].length;x++) {
+								System.out.print("[" + hotel[i][x] + "]");
+							}
+							System.out.println();
+						}
+						System.out.println();
+						break;
+					case 2:
+						System.out.println("----------------------");
+						System.out.print("Enter Floor 1-7: ");
+							int floor = -1 + sc.nextInt();
+						System.out.print("Enter Room number 1-5: ");
+							int room = -1 + sc.nextInt();
+						System.out.println("Check-in successful!!");
+								if(hotel[floor][room] == 0) {
+									hotel[floor][room] = 1;		
+							}else {
+								System.err.println("The room is occupied");
+							}
+								break;
+					case 3:
+						System.out.println("----------------------");
+						System.out.print("Enter Floor 1-7: ");
+							int floor2 = -1 + sc.nextInt();
+						System.out.print("Enter Room number 1-5: ");
+							int room2 = -1 + sc.nextInt();	
+						System.out.println("Check-out successful, The room is Empty!!");
+							if(hotel[floor2][room2] == 1) {
+								hotel[floor2][room2] = 0;
+							}else {
+								System.out.println("The room is already Empty");
+							}
+							break;
+					case 4:
+						System.out.println("Thank you for staying!!");
+						break;
+					default:
+						System.err.println("Invalid");
+					}
+						
 				}
 			}
-			System.out.println();
-		}
-		
-		for(int j = 0; j<numbers.length;j++) {
-			for(int e = 0; e<numbers[j].length;e++) {
-				System.out.print(numbers[j][e] + " ");
-			}
-			System.out.println();
-		}
-		
-		for(int j = 0; j<numbers.length;j++) {
-			for(int e = 0; e<numbers[j].length;e++) {
-				numbers[1][e] = 0;
-			}
-			System.out.println();
-		}
-		for(int j = 0; j<numbers.length;j++) {
-			for(int e = 0; e<numbers[j].length;e++) {
-				System.out.print(numbers[j][e] + " ");
-			}
-			System.out.println();
-		}
 	}
 
-}
+
