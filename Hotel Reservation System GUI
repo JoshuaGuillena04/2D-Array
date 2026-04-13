@@ -1,0 +1,102 @@
+package Guillena;
+import java.util.*;
+import javax.swing.JOptionPane;
+public class Guillena2 {
+
+	public static void main(String[] args) {
+		 int hotel[][] = new int[7][5];
+	        int choice = 0;
+	        
+	        while(choice != 4) {
+	            String menu = "Hotel Reservation System\n\n" +
+	                         "1. View all rooms\n" +
+	                         "2. Check-in (reserve a room)\n" +
+	                         "3. Check-out (free a room)\n" +
+	                         "4. Exit program";
+	            
+	            String choiceStr = JOptionPane.showInputDialog(null, menu, "Hotel System", JOptionPane.PLAIN_MESSAGE);
+	            
+	            if(choiceStr == null) {
+	                choice = 4; 
+	                continue;
+	            }
+	            
+	            try {
+	                choice = Integer.parseInt(choiceStr);
+	            } catch(NumberFormatException e) {
+	                JOptionPane.showMessageDialog(null, "Invalid input! Please enter a number 1-4.", "Error", JOptionPane.ERROR_MESSAGE);
+	                continue;
+	            }
+	            
+	            switch(choice) {
+	                case 1:
+	                    StringBuilder display = new StringBuilder("Current Room Status:\n\n");
+	                    for(int i = 0; i < hotel.length; i++) {
+	                        display.append("Floor ").append(i + 1).append(": ");
+	                        for(int x = 0; x < hotel[i].length; x++) {
+	                            display.append("[").append(hotel[i][x]).append("] ");
+	                        }
+	                        display.append("\n");
+	                    }
+	                    JOptionPane.showMessageDialog(null, display.toString(), "Room Status", JOptionPane.INFORMATION_MESSAGE);
+	                    break;
+	                    
+	                case 2:
+	                    String floorStr = JOptionPane.showInputDialog(null, "Enter Floor (1-7):", "Check-in", JOptionPane.QUESTION_MESSAGE);
+	                    String roomStr = JOptionPane.showInputDialog(null, "Enter Room number (1-5):", "Check-in", JOptionPane.QUESTION_MESSAGE);
+	                    
+	                    try {
+	                        int floor = Integer.parseInt(floorStr) - 1;
+	                        int room = Integer.parseInt(roomStr) - 1;
+	                        
+	                        if(floor >= 0 && floor < 7 && room >= 0 && room < 5) {
+	                            if(hotel[floor][room] == 0) {
+	                                hotel[floor][room] = 1;
+	                                JOptionPane.showMessageDialog(null, "Check-in successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+	                            } else {
+	                                JOptionPane.showMessageDialog(null, "The room is already occupied!", "Error", JOptionPane.ERROR_MESSAGE);
+	                            }
+	                        } else {
+	                            JOptionPane.showMessageDialog(null, "Invalid floor or room number!", "Error", JOptionPane.ERROR_MESSAGE);
+	                        }
+	                    } catch(NumberFormatException e) {
+	                        JOptionPane.showMessageDialog(null, "Please enter valid numbers!", "Error", JOptionPane.ERROR_MESSAGE);
+	                    }
+	                    break;
+	                    
+	                case 3:
+	                    String floor2Str = JOptionPane.showInputDialog(null, "Enter Floor (1-7):", "Check-out", JOptionPane.QUESTION_MESSAGE);
+	                    String room2Str = JOptionPane.showInputDialog(null, "Enter Room number (1-5):", "Check-out", JOptionPane.QUESTION_MESSAGE);
+	                    
+	                    try {
+	                        int floor2 = Integer.parseInt(floor2Str) - 1;
+	                        int room2 = Integer.parseInt(room2Str) - 1;
+	                        
+	                        if(floor2 >= 0 && floor2 < 7 && room2 >= 0 && room2 < 5) {
+	                            if(hotel[floor2][room2] == 1) {
+	                                hotel[floor2][room2] = 0;
+	                                JOptionPane.showMessageDialog(null, "Check-out successful! The room is now empty.", "Success", JOptionPane.INFORMATION_MESSAGE);
+	                            } else {
+	                                JOptionPane.showMessageDialog(null, "The room is already empty.", "Info", JOptionPane.INFORMATION_MESSAGE);
+	                            }
+	                        } else {
+	                            JOptionPane.showMessageDialog(null, "Invalid floor or room number!", "Error", JOptionPane.ERROR_MESSAGE);
+	                        }
+	                    } catch(NumberFormatException e) {
+	                        JOptionPane.showMessageDialog(null, "Please enter valid numbers!", "Error", JOptionPane.ERROR_MESSAGE);
+	                    }
+	                    break;
+	                    
+	                case 4:
+	                    JOptionPane.showMessageDialog(null, "Thank you for staying!!", "Goodbye", JOptionPane.INFORMATION_MESSAGE);
+	                    break;
+	                    
+	                default:
+	                    JOptionPane.showMessageDialog(null, "Invalid choice! Please enter 1-4.", "Error", JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
+	        System.exit(0);
+	    }
+	}
+
+
