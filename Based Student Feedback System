@@ -1,0 +1,82 @@
+package Guillena;
+import javax.swing.*;
+import java.io.*;
+public class Guillena {
+
+	public static void main(String[] args) {
+		String names[] = new String[100];
+		String course[] = new String[100];
+		String message[] = new String[100];
+		int ratings[] = new int[100];
+		int count = 0;
+		int totalrating = 0;
+		int ratingCount[] = {0,0,0,0,0,0};
+		
+		JOptionPane.showMessageDialog(null, "Welcome");
+		
+		while(JOptionPane.showConfirmDialog(null, "Add new feedback?", "New Entry", 
+				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+			
+			names[count] = JOptionPane.showInputDialog("Student name: ");
+			course[count] = JOptionPane.showInputDialog("Course: ");
+			message[count] = JOptionPane.showInputDialog("Feedback: ");
+			String ratingStr = JOptionPane.showInputDialog("Rating 1-5: ");
+			ratings[count] = Integer.parseInt(ratingStr);
+			ratingCount[ratings[count]]++;
+			totalrating += ratings[count];
+			count++;	
+		}
+		if(count == 0) {
+			JOptionPane.showMessageDialog(null,"no feedback Recorded!");
+			return;
+		}
+		double avg = (double) totalrating/count;
+		
+		String summary = "Total" + count + "\nAvg" + String.format("%.1f", avg) + "\n\n";
+		summary += "5 Excellent: " + ratingCount[5] + "\n";
+		summary += "4 Good: " + ratingCount[4] + "\n";
+		summary += "3 Average: " + ratingCount[3] + "\n";
+		summary += "2 Poor: " + ratingCount[2] + "\n";
+		summary += "1 Very Poor: " + ratingCount[1] + "\n";
+		
+		JOptionPane.showMessageDialog(null,summary);
+		
+		
+		String msg;
+		if(avg >= 4.5) {
+			msg = "Outstanding";
+		}else if(avg >= 3.5) {
+			msg = "Good";
+		}else if(avg >= 2.5){
+			msg = "Average";
+		}else {
+			msg = "Needs Improvement";
+		}
+			JOptionPane.showMessageDialog(null,msg);
+			
+			try (PrintWriter out = new PrintWriter(new FileWriter("feedback.txt"))) {
+	            out.println("--- Student Feedback Records ---");
+	            for (int i = 0; i < count; i++) {
+	                String cat = ratings[i]==5?"Excellent":ratings[i]==4?"Good":
+	                           ratings[i]==3?"Average":ratings[i]==2?"Poor":"Very Poor";
+	                out.printf("Student Name: %s\nCourse: %s\nFeedback: %s\nRating: %d (%s)\n\n", 
+	                          names[i], course[i], message[i], ratings[i], cat);
+	            }
+	            out.println("--------------------------");
+	            out.println("Total Feedbacks: " + count);
+	            out.printf("Average Rating: %.1f\n\n", avg);
+	            out.println("Rating Summary:");
+	            out.println("Excellent: " + ratingCount[5]);
+	            out.println("Good: " + ratingCount[4]);
+	            out.println("Average: " + ratingCount[3]);
+	            out.println("Poor: " + ratingCount[2]);
+	            out.println("Very Poor: " + ratingCount[1]);
+	            out.println("--------------------------");
+	            
+	            JOptionPane.showMessageDialog(null, "Saved to feedback.txt!");
+	        } catch (Exception e) {
+	            JOptionPane.showMessageDialog(null, "File error!");
+	        }
+	}
+
+}
